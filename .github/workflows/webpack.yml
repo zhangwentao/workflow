@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
      pages: write
+     contents: write
+     deployments: write
      id-token: write
   
     strategy:
@@ -38,7 +40,16 @@ jobs:
         # Duration after which artifact will expire in days.
         #retention-days: # optional, default is 1
         
-    - name: Deploy GitHub Pages site
-      uses: actions/deploy-pages@v1.0.10
-      with:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      deployments: write
+      id-token: write
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1.0.10
+        with:
          token: ${{ github.token }} # default is ${{ github.token }}
