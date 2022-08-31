@@ -5,5 +5,20 @@ module.exports = {
 	output: {
 		path: __dirname+'/dist' 
 	},
-  plugins: [new HtmlWebpackPlugin()]
+	devServer: {
+	},
+	module: {
+		rules: [
+			{
+				test: /\.jsx$/,
+				loader: 'babel-loader',
+				options: {
+					 presets: ['@babel/preset-env','@babel/preset-react']
+				}
+			}
+		]
+	},
+  plugins: [new HtmlWebpackPlugin({
+	template: './src/tpl.html'
+})]
 }
